@@ -9,3 +9,4 @@
 /project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/refint/bookstore-management-shared.dll
 /project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.pdb
 /project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/ref/bookstore-management-shared.dll
+/project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.sourcelink.json

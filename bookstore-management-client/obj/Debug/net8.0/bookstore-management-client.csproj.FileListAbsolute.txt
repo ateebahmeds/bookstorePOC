@@ -1038,3 +1038,4 @@
 /project/sandbox/user-workspace/bookstore-management-client/obj/Debug/net8.0/refint/bookstore-management-client.dll
 /project/sandbox/user-workspace/bookstore-management-client/obj/Debug/net8.0/bookstore-management-client.pdb
 /project/sandbox/user-workspace/bookstore-management-client/obj/Debug/net8.0/ref/bookstore-management-client.dll
+/project/sandbox/user-workspace/bookstore-management-client/obj/Debug/net8.0/bookstore-management-client.sourcelink.json
