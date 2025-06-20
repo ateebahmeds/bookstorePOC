@@ -16,6 +16,10 @@
 
     protected override void OnInitialized()
     {
+        if (NavigationManager.Uri.EndsWith("/login"))
+        {
+            return;
+        }
         NavigationManager.NavigateTo("/login", true);
     }
 }

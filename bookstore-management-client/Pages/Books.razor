@@ -2,6 +2,7 @@
 @using System.Net.Http.Json
 @inject HttpClient Http
 @inject AuthService AuthService
+@inject IJSRuntime JSRuntime
 
 <h3>Books</h3>
 
@@ -28,8 +29,17 @@ else
             </div>
 
             <div class="form-group mb-2">
-                <label for="authorId">Author ID:</label>
-                <InputNumber id="authorId" @bind-Value="newBook.AuthorId" class="form-control" />
+                <label for="authorId">Author:</label>
+                <InputSelect id="authorId" @bind-Value="newBook.AuthorId" class="form-control">
+                    <option value="0">-- Select Author --</option>
+                    @if (authors != null)
+                    {
+                        @foreach (var author in authors)
+                        {
+                            <option value="@author.Id">@author.Name</option>
+                        }
+                    }
+                </InputSelect>
             </div>
 
             <div class="form-group mb-2">
@@ -65,18 +75,65 @@ else
                 <th>Author</th>
                 <th>Price</th>
                 <th>Stock</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var book in books)
             {
-                <tr>
-                    <td>@book.Title</td>
-                    <td>@book.ISBN</td>
-                    <td>@book.Author?.Name</td>
-                    <td>@book.Price.ToString("C")</td>
-                    <td>@book.Stock</td>
-                </tr>
+                @if (editingBook?.Id == book.Id)
+                {
+                    <tr>
+                        <td colspan="6">
+                            <EditForm Model="@editingBook" OnValidSubmit="@SaveEdit">
+                                <DataAnnotationsValidator />
+                                <div class="row g-2">
+                                    <div class="col">
+                                        <InputText class="form-control" @bind-Value="editingBook.Title" placeholder="Title" />
+                                    </div>
+                                    <div class="col">
+                                        <InputText class="form-control" @bind-Value="editingBook.ISBN" placeholder="ISBN" />
+                                    </div>
+                                    <div class="col">
+                                        <InputSelect class="form-control" @bind-Value="editingBook.AuthorId">
+                                            @if (authors != null)
+                                            {
+                                                @foreach (var author in authors)
+                                                {
+                                                    <option value="@author.Id">@author.Name</option>
+                                                }
+                                            }
+                                        </InputSelect>
+                                    </div>
+                                    <div class="col">
+                                        <InputNumber class="form-control" @bind-Value="editingBook.Price" />
+                                    </div>
+                                    <div class="col">
+                                        <InputNumber class="form-control" @bind-Value="editingBook.Stock" />
+                                    </div>
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-success btn-sm">Save</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" @onclick="CancelEdit">Cancel</button>
+                                    </div>
+                                </div>
+                            </EditForm>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td>@book.Title</td>
+                        <td>@book.ISBN</td>
+                        <td>@book.Author?.Name</td>
+                        <td>@book.Price.ToString("C")</td>
+                        <td>@book.Stock</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" @onclick="() => StartEdit(book)">Edit</button>
+                            <button class="btn btn-danger btn-sm" @onclick="() => DeleteBook(book.Id)">Delete</button>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
@@ -84,19 +141,210 @@ else
 
 @code {
     private List<Book>? books;
-
+    private List<Author>? authors;
     private NewBook newBook = new();
 
     protected override async Task OnInitializedAsync()
     {
+        await LoadAuthors();
         await LoadBooks();
+    }
+
+    private async Task LoadAuthors()
+    {
+        var query = @"
+        query {
+            authors {
+                id
+                name
+            }
+        }";
+
+        var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5220/graphql");
+        request.Content = JsonContent.Create(new { query });
+
+        var response = await Http.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+
+        var result = await response.Content.ReadFromJsonAsync<AuthorsGraphQLResponse>();
+        authors = result?.Data?.Authors;
     }
 
     private async Task LoadBooks()
     {
-        var query = @"
-        query {
-            books {
+        try
+        {
+            var query = @"
+            query {
+                books {
+                    id
+                    title
+                    isbn
+                    price
+                    stock
+                    authorId
+                    author {
+                        id
+                        name
+                    }
+                }
+            }";
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5220/graphql");
+            request.Content = JsonContent.Create(new { query });
+
+            var response = await Http.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<GraphQLResponse>();
+            if (result?.Data?.Books != null)
+            {
+                books = result.Data.Books;
+                StateHasChanged();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading books: {ex.Message}");
+            await JSRuntime.InvokeVoidAsync("alert", "Error loading books. Please try again.");
+        }
+    }
+
+    private Book? editingBook;
+
+    private void StartEdit(Book book)
+    {
+        editingBook = new Book
+        {
+            Id = book.Id,
+            Title = book.Title ?? string.Empty,
+            ISBN = book.ISBN ?? string.Empty,
+            AuthorId = book.Author?.Id ?? 0,
+            Price = book.Price,
+            Stock = book.Stock
+        };
+    }
+
+    private void CancelEdit()
+    {
+        editingBook = null;
+    }
+
+    private async Task SaveEdit()
+    {
+        if (editingBook == null) return;
+
+        try
+        {
+            var mutation = @"
+            mutation ($id: Int!, $title: String, $isbn: String, $authorId: Int, $price: Decimal, $stock: Int) {
+                updateBook(id: $id, title: $title, isbn: $isbn, authorId: $authorId, price: $price, stock: $stock) {
+                    id
+                    title
+                    isbn
+                    price
+                    stock
+                    author {
+                        id
+                        name
+                    }
+                }
+            }";
+
+            var variables = new
+            {
+                id = editingBook.Id,
+                title = editingBook.Title,
+                isbn = editingBook.ISBN,
+                authorId = editingBook.AuthorId,
+                price = editingBook.Price,
+                stock = editingBook.Stock
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5220/graphql");
+            request.Content = JsonContent.Create(new { query = mutation, variables });
+
+            if (!string.IsNullOrEmpty(AuthService.Token))
+            {
+                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", AuthService.Token);
+            }
+
+            var response = await Http.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<GraphQLResponse>();
+            if (result?.Data?.UpdateBook != null)
+            {
+                var updatedBook = result.Data.UpdateBook;
+                var index = books?.FindIndex(b => b.Id == updatedBook.Id) ?? -1;
+                if (index != -1 && books != null)
+                {
+                    books[index] = updatedBook;
+                }
+                editingBook = null;
+                StateHasChanged();
+            }
+            else
+            {
+                await JSRuntime.InvokeVoidAsync("alert", "Error updating book. Please try again.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error updating book: {ex.Message}");
+            await JSRuntime.InvokeVoidAsync("alert", "Error updating book. Please try again.");
+        }
+    }
+
+    private async Task DeleteBook(int id)
+    {
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", "Are you sure you want to delete this book?"))
+            return;
+
+        try
+        {
+            var mutation = @"
+            mutation ($id: Int!) {
+                deleteBook(id: $id)
+            }";
+
+            var variables = new { id };
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5220/graphql");
+            request.Content = JsonContent.Create(new { query = mutation, variables });
+
+            if (!string.IsNullOrEmpty(AuthService.Token))
+            {
+                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", AuthService.Token);
+            }
+
+            var response = await Http.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<DeleteGraphQLResponse>();
+            if (result?.Data?.DeleteBook == true)
+            {
+                books?.RemoveAll(b => b.Id == id);
+                StateHasChanged();
+            }
+            else
+            {
+                await JSRuntime.InvokeVoidAsync("alert", "Error deleting book. Please try again.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting book: {ex.Message}");
+            await JSRuntime.InvokeVoidAsync("alert", "Error deleting book. Please try again.");
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var mutation = @"
+        mutation ($title: String!, $isbn: String!, $authorId: Int!, $price: Decimal!, $stock: Int!) {
+            addBook(title: $title, isbn: $isbn, authorId: $authorId, price: $price, stock: $stock) {
+                id
                 title
                 isbn
                 price
@@ -104,33 +352,6 @@ else
                 author {
                     name
                 }
-            }
-        }";
-
-        var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5220/graphql");
-        request.Content = JsonContent.Create(new { query });
-
-        if (!string.IsNullOrEmpty(AuthService.Token))
-        {
-            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", AuthService.Token);
-        }
-
-        var response = await Http.SendAsync(request);
-        response.EnsureSuccessStatusCode();
-
-        var result = await response.Content.ReadFromJsonAsync<GraphQLResponse>();
-        books = result?.Data?.Books;
-    }
-
-    private async Task HandleValidSubmit()
-    {
-        var mutation = @"
-        mutation ($title: String!, $isbn: String!, $authorId: Int!, $price: Float!, $stock: Int!) {
-            addBook(title: $title, isbn: $isbn, authorId: $authorId, price: $price, stock: $stock) {
-                title
-                isbn
-                price
-                stock
             }
         }";
 
@@ -167,19 +388,44 @@ else
     public class Data
     {
         public List<Book>? Books { get; set; }
+        public Book? UpdateBook { get; set; }
+        public bool DeleteBook { get; set; }
+    }
+
+    public class DeleteGraphQLResponse
+    {
+        public DeleteData? Data { get; set; }
+    }
+
+    public class DeleteData
+    {
+        public bool DeleteBook { get; set; }
+    }
+
+    public class AuthorsGraphQLResponse
+    {
+        public AuthorsData? Data { get; set; }
+    }
+
+    public class AuthorsData
+    {
+        public List<Author>? Authors { get; set; }
     }
 
     public class Book
     {
+        public int Id { get; set; }
         public string? Title { get; set; }
         public string? ISBN { get; set; }
         public Author? Author { get; set; }
+        public int AuthorId { get; set; }
         public decimal Price { get; set; }
         public int Stock { get; set; }
     }
 
     public class Author
     {
+        public int Id { get; set; }
         public string? Name { get; set; }
     }
 

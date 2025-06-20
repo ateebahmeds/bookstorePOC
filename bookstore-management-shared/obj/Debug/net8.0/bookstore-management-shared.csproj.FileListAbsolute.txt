@@ -10,3 +10,15 @@
 /project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.pdb
 /project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/ref/bookstore-management-shared.dll
 /project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.sourcelink.json
+/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/bin/Debug/net8.0/bookstore-management-shared.deps.json
+/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/bin/Debug/net8.0/bookstore-management-shared.dll
+/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/bin/Debug/net8.0/bookstore-management-shared.pdb
+/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.AssemblyInfoInputs.cache
+/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.AssemblyInfo.cs
+/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.csproj.CoreCompileInputs.cache
+/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.sourcelink.json
+/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.dll
+/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/obj/Debug/net8.0/refint/bookstore-management-shared.dll
+/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.pdb
+/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/obj/Debug/net8.0/ref/bookstore-management-shared.dll

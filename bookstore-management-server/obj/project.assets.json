@@ -133,6 +133,25 @@
           "build/HotChocolate.AspNetCore.targets": {}
         }
       },
+      "HotChocolate.AspNetCore.Authorization/15.1.6": {
+        "type": "package",
+        "dependencies": {
+          "HotChocolate": "15.1.6"
+        },
+        "compile": {
+          "lib/net8.0/HotChocolate.AspNetCore.Authorization.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/HotChocolate.AspNetCore.Authorization.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "HotChocolate.Authorization/15.1.6": {
         "type": "package",
         "dependencies": {
@@ -1745,6 +1764,25 @@
         "hotchocolate.aspnetcore.nuspec",
         "lib/net8.0/HotChocolate.AspNetCore.dll",
         "lib/net9.0/HotChocolate.AspNetCore.dll",
+        "strawberryshake-signet.png"
+      ]
+    },
+    "HotChocolate.AspNetCore.Authorization/15.1.6": {
+      "sha512": "w4o+eEsEJvL9F6qTWjqWBK2GvRa86IWF9cqay5FtWX4O/THEEZdhe8YoKt38Ll5nwEdMrPriKFuybc5QLEYWyw==",
+      "type": "package",
+      "path": "hotchocolate.aspnetcore.authorization/15.1.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "greendonut-signet.png",
+        "hotchocolate-signet.png",
+        "hotchocolate.aspnetcore.authorization.15.1.6.nupkg.sha512",
+        "hotchocolate.aspnetcore.authorization.nuspec",
+        "lib/net8.0/HotChocolate.AspNetCore.Authorization.dll",
+        "lib/net8.0/HotChocolate.AspNetCore.Authorization.xml",
+        "lib/net9.0/HotChocolate.AspNetCore.Authorization.dll",
+        "lib/net9.0/HotChocolate.AspNetCore.Authorization.xml",
         "strawberryshake-signet.png"
       ]
     },
@@ -4268,6 +4306,8 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "HotChocolate.AspNetCore >= 15.1.6",
+      "HotChocolate.AspNetCore.Authorization >= 15.1.6",
+      "HotChocolate.Authorization >= 15.1.6",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.0-preview.7.23375.3",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 8.0.0-preview.6.23329.11",
       "Microsoft.AspNetCore.OpenApi >= 8.0.3",
@@ -4279,19 +4319,19 @@
     ]
   },
   "packageFolders": {
-    "/root/.nuget/packages/": {}
+    "/Users/ateeb/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/project/sandbox/user-workspace/bookstore-management-server/bookstore-management-server.csproj",
+      "projectUniqueName": "/Users/ateeb/Documents/bookstorePOC/bookstore-management-server/bookstore-management-server.csproj",
       "projectName": "bookstore-management-server",
-      "projectPath": "/project/sandbox/user-workspace/bookstore-management-server/bookstore-management-server.csproj",
-      "packagesPath": "/root/.nuget/packages/",
-      "outputPath": "/project/sandbox/user-workspace/bookstore-management-server/obj/",
+      "projectPath": "/Users/ateeb/Documents/bookstorePOC/bookstore-management-server/bookstore-management-server.csproj",
+      "packagesPath": "/Users/ateeb/.nuget/packages/",
+      "outputPath": "/Users/ateeb/Documents/bookstorePOC/bookstore-management-server/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/root/.nuget/NuGet/NuGet.Config"
+        "/Users/ateeb/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -4303,8 +4343,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/project/sandbox/user-workspace/bookstore-management-shared/bookstore-management-shared.csproj": {
-              "projectPath": "/project/sandbox/user-workspace/bookstore-management-shared/bookstore-management-shared.csproj"
+            "/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/bookstore-management-shared.csproj": {
+              "projectPath": "/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/bookstore-management-shared.csproj"
             }
           }
         }
@@ -4325,6 +4365,14 @@
         "targetAlias": "net8.0",
         "dependencies": {
           "HotChocolate.AspNetCore": {
+            "target": "Package",
+            "version": "[15.1.6, )"
+          },
+          "HotChocolate.AspNetCore.Authorization": {
+            "target": "Package",
+            "version": "[15.1.6, )"
+          },
+          "HotChocolate.Authorization": {
             "target": "Package",
             "version": "[15.1.6, )"
           },
@@ -4378,7 +4426,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.411/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

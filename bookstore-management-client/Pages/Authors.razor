@@ -1,0 +1,141 @@
+@page "/authors"
+@using System.Net.Http.Json
+@inject HttpClient Http
+@inject AuthService AuthService
+@inject IJSRuntime JSRuntime
+
+<h3>Authors</h3>
+
+@if (AuthService.Token != null)
+{
+    <div class="mb-4">
+        <h4>Add New Author</h4>
+        <EditForm Model="@newAuthor" OnValidSubmit="@HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group mb-2">
+                <label for="name">Name:</label>
+                <InputText id="name" @bind-Value="newAuthor.Name" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Author</button>
+        </EditForm>
+    </div>
+}
+else
+{
+    <p>Please <a href="/login">login</a> to add authors.</p>
+}
+
+@if (authors == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (authors.Count == 0)
+{
+    <p>No authors found.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var author in authors)
+            {
+                <tr>
+                    <td>@author.Id</td>
+                    <td>@author.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Author>? authors;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAuthors();
+    }
+
+    private NewAuthor newAuthor = new();
+
+    private async Task HandleValidSubmit()
+    {
+        var mutation = @"
+        mutation ($name: String!) {
+            addAuthor(name: $name) {
+                id
+                name
+            }
+        }";
+
+        var variables = new
+        {
+            name = newAuthor.Name
+        };
+
+        var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5220/graphql");
+        request.Content = JsonContent.Create(new { query = mutation, variables });
+
+        if (!string.IsNullOrEmpty(AuthService.Token))
+        {
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", AuthService.Token);
+        }
+
+        var response = await Http.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+
+        // Reset form and reload authors
+        newAuthor = new NewAuthor();
+        await LoadAuthors();
+    }
+
+    private async Task LoadAuthors()
+    {
+        var query = @"
+        query {
+            authors {
+                id
+                name
+            }
+        }";
+
+        var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5220/graphql");
+        request.Content = JsonContent.Create(new { query });
+
+        var response = await Http.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+
+        var result = await response.Content.ReadFromJsonAsync<GraphQLResponse>();
+        authors = result?.Data?.Authors;
+    }
+
+    public class GraphQLResponse
+    {
+        public Data? Data { get; set; }
+    }
+
+    public class Data
+    {
+        public List<Author>? Authors { get; set; }
+    }
+
+    public class Author
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+    }
+
+    public class NewAuthor
+    {
+        public string Name { get; set; } = string.Empty;
+    }
+}

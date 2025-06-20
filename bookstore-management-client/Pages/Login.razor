@@ -30,6 +30,15 @@
     private LoginModel loginModel = new();
     private string? errorMessage;
 
+    protected override async Task OnInitializedAsync()
+    {
+        var token = await AuthService.GetTokenFromSession();
+        if (!string.IsNullOrEmpty(token))
+        {
+            Navigation.NavigateTo("/books");
+        }
+    }
+
     private async Task HandleLogin()
     {
         errorMessage = null;

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8qz+TlYP9oFHLxdPLwK4fz5ZWntBRZVINe2TBt+T6Xd6uJsom032Dn9IeXSvmqZIR5DD/3iQuMQXEjYXmntTqQ==",
+  "dgSpecHash": "XVagFCBiecA=",
   "success": true,
-  "projectFilePath": "/project/sandbox/user-workspace/bookstore-management-shared/bookstore-management-shared.csproj",
+  "projectFilePath": "/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/bookstore-management-shared.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

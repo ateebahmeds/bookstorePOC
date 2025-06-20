@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "/root/.nuget/packages/": {}
+    "/Users/ateeb/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/project/sandbox/user-workspace/bookstore-management-shared/bookstore-management-shared.csproj",
+      "projectUniqueName": "/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/bookstore-management-shared.csproj",
       "projectName": "bookstore-management-shared",
-      "projectPath": "/project/sandbox/user-workspace/bookstore-management-shared/bookstore-management-shared.csproj",
-      "packagesPath": "/root/.nuget/packages/",
-      "outputPath": "/project/sandbox/user-workspace/bookstore-management-shared/obj/",
+      "projectPath": "/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/bookstore-management-shared.csproj",
+      "packagesPath": "/Users/ateeb/.nuget/packages/",
+      "outputPath": "/Users/ateeb/Documents/bookstorePOC/bookstore-management-shared/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/root/.nuget/NuGet/NuGet.Config"
+        "/Users/ateeb/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -64,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.411/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

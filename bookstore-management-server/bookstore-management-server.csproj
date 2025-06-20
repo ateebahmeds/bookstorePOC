@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="HotChocolate.AspNetCore" Version="15.1.6" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="15.1.6" />
+    <PackageReference Include="HotChocolate.Authorization" Version="15.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0-preview.7.23375.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0-preview.6.23329.11" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
