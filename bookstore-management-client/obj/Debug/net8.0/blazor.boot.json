@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "bookstore-management-client",
   "resources": {
-    "hash": "sha256-k4kK6EeyZJU91CsQFukHmO3olt7N8uLoOyS8FMkXTjQ=",
+    "hash": "sha256-/K8gIVb7cjIQeDV+fzTi7BtH+I/bdAUpZx3zThLjOIU=",
     "jsModuleNative": {
       "dotnet.native.8.0.3.thpb1v50q4.js": "sha256-D4sYBYmDfH/YekgYRgX959/2RG6k28sJSHmcsn+iikk="
     },
@@ -208,12 +208,12 @@
       "mscorlib.wasm": "sha256-/xjZuJwCmantx5vGyH5ZZ8keySSTeu+YHKQRJbZzcuM=",
       "netstandard.wasm": "sha256-vuFKmCGJbyv85DrzI6S1ZvCikuhIllH6hqbXIL+fUAA=",
       "System.Private.CoreLib.wasm": "sha256-SZkozEDkHEFN0VaDmhl2HOenGaqTOmHqEGkraz3Aejc=",
-      "bookstore-management-shared.wasm": "sha256-12KVH8ebinrmor8cv3HvpRzynaxmvFlIhaVKFDOpLZc=",
-      "bookstore-management-client.wasm": "sha256-995z0+bh30vFY5TeuoxI+tmk56Xv+CSLEnMxnzl+y3Y="
+      "bookstore-management-shared.wasm": "sha256-TEBaBGPYn2EDkirHJ+n3fqGDfjhKg2kveGGh5sW5kug=",
+      "bookstore-management-client.wasm": "sha256-Wupmbx7TdBZOjPr1YDOGIqE/jP1XOGRY9VqL5xQ1T6Q="
     },
     "pdb": {
-      "bookstore-management-shared.pdb": "sha256-Vr9QZD07RBYB0YnD2/FNDu43TNY/GgixJgT/okphhHk=",
-      "bookstore-management-client.pdb": "sha256-Djtb8NSATFEjUbCJctfcLY+0kum2KlLYCP8gFGRE3MY="
+      "bookstore-management-shared.pdb": "sha256-l02O4tBEdrNOGTO5mm5XbR+CP4oUk40KMm54kzbwMW8=",
+      "bookstore-management-client.pdb": "sha256-Gkv64tGBR5K7zJFL23a9fA6nBpp3XPQi1b/ug3llR3U="
     }
   },
   "cacheBootResources": true,
