@@ -1,0 +1,194 @@
+@page "/books"
+@using System.Net.Http.Json
+@inject HttpClient Http
+@inject AuthService AuthService
+
+<h3>Books</h3>
+
+@if (AuthService.Token == null)
+{
+    <p>Please <a href="/login">login</a> to add books.</p>
+}
+else
+{
+    <div class="mb-4">
+        <h4>Add New Book</h4>
+        <EditForm Model="@newBook" OnValidSubmit="@HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group mb-2">
+                <label for="title">Title:</label>
+                <InputText id="title" @bind-Value="newBook.Title" class="form-control" />
+            </div>
+
+            <div class="form-group mb-2">
+                <label for="isbn">ISBN:</label>
+                <InputText id="isbn" @bind-Value="newBook.ISBN" class="form-control" />
+            </div>
+
+            <div class="form-group mb-2">
+                <label for="authorId">Author ID:</label>
+                <InputNumber id="authorId" @bind-Value="newBook.AuthorId" class="form-control" />
+            </div>
+
+            <div class="form-group mb-2">
+                <label for="price">Price:</label>
+                <InputNumber id="price" @bind-Value="newBook.Price" class="form-control" />
+            </div>
+
+            <div class="form-group mb-2">
+                <label for="stock">Stock:</label>
+                <InputNumber id="stock" @bind-Value="newBook.Stock" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Book</button>
+        </EditForm>
+    </div>
+}
+
+@if (books == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (books.Count == 0)
+{
+    <p>No books found.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in books)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@book.ISBN</td>
+                    <td>@book.Author?.Name</td>
+                    <td>@book.Price.ToString("C")</td>
+                    <td>@book.Stock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Book>? books;
+
+    private NewBook newBook = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadBooks();
+    }
+
+    private async Task LoadBooks()
+    {
+        var query = @"
+        query {
+            books {
+                title
+                isbn
+                price
+                stock
+                author {
+                    name
+                }
+            }
+        }";
+
+        var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5220/graphql");
+        request.Content = JsonContent.Create(new { query });
+
+        if (!string.IsNullOrEmpty(AuthService.Token))
+        {
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", AuthService.Token);
+        }
+
+        var response = await Http.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+
+        var result = await response.Content.ReadFromJsonAsync<GraphQLResponse>();
+        books = result?.Data?.Books;
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var mutation = @"
+        mutation ($title: String!, $isbn: String!, $authorId: Int!, $price: Float!, $stock: Int!) {
+            addBook(title: $title, isbn: $isbn, authorId: $authorId, price: $price, stock: $stock) {
+                title
+                isbn
+                price
+                stock
+            }
+        }";
+
+        var variables = new
+        {
+            title = newBook.Title,
+            isbn = newBook.ISBN,
+            authorId = newBook.AuthorId,
+            price = newBook.Price,
+            stock = newBook.Stock
+        };
+
+        var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5220/graphql");
+        request.Content = JsonContent.Create(new { query = mutation, variables });
+
+        if (!string.IsNullOrEmpty(AuthService.Token))
+        {
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", AuthService.Token);
+        }
+
+        var response = await Http.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+
+        // Reset form and reload books
+        newBook = new NewBook();
+        await LoadBooks();
+    }
+
+    public class GraphQLResponse
+    {
+        public Data? Data { get; set; }
+    }
+
+    public class Data
+    {
+        public List<Book>? Books { get; set; }
+    }
+
+    public class Book
+    {
+        public string? Title { get; set; }
+        public string? ISBN { get; set; }
+        public Author? Author { get; set; }
+        public decimal Price { get; set; }
+        public int Stock { get; set; }
+    }
+
+    public class Author
+    {
+        public string? Name { get; set; }
+    }
+
+    public class NewBook
+    {
+        public string Title { get; set; } = string.Empty;
+        public string ISBN { get; set; } = string.Empty;
+        public int AuthorId { get; set; }
+        public decimal Price { get; set; }
+        public int Stock { get; set; }
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "hz5vS7dJch4xPYsEQYeNs0UVMQR2tLzmdxcY6/xhWXQ=",
+  "Source": "bookstore-management-server",
+  "BasePath": "_content/bookstore-management-server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

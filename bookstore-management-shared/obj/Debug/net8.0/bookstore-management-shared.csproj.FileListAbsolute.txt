@@ -1,0 +1,11 @@
+/project/sandbox/user-workspace/bookstore-management-shared/bin/Debug/net8.0/bookstore-management-shared.deps.json
+/project/sandbox/user-workspace/bookstore-management-shared/bin/Debug/net8.0/bookstore-management-shared.dll
+/project/sandbox/user-workspace/bookstore-management-shared/bin/Debug/net8.0/bookstore-management-shared.pdb
+/project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.GeneratedMSBuildEditorConfig.editorconfig
+/project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.AssemblyInfoInputs.cache
+/project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.AssemblyInfo.cs
+/project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.csproj.CoreCompileInputs.cache
+/project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.dll
+/project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/refint/bookstore-management-shared.dll
+/project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/bookstore-management-shared.pdb
+/project/sandbox/user-workspace/bookstore-management-shared/obj/Debug/net8.0/ref/bookstore-management-shared.dll

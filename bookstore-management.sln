@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bookstore-management-server", "bookstore-management-server\bookstore-management-server.csproj", "{016EB72E-3568-43F7-B000-9002ACC4C37E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bookstore-management-client", "bookstore-management-client\bookstore-management-client.csproj", "{5A4DD032-6030-4071-BDB5-FAE5B7075C44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bookstore-management-shared", "bookstore-management-shared\bookstore-management-shared.csproj", "{317280F5-F3E1-4568-B987-48D2ECC08336}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{016EB72E-3568-43F7-B000-9002ACC4C37E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{016EB72E-3568-43F7-B000-9002ACC4C37E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{016EB72E-3568-43F7-B000-9002ACC4C37E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{016EB72E-3568-43F7-B000-9002ACC4C37E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A4DD032-6030-4071-BDB5-FAE5B7075C44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A4DD032-6030-4071-BDB5-FAE5B7075C44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A4DD032-6030-4071-BDB5-FAE5B7075C44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A4DD032-6030-4071-BDB5-FAE5B7075C44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{317280F5-F3E1-4568-B987-48D2ECC08336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{317280F5-F3E1-4568-B987-48D2ECC08336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{317280F5-F3E1-4568-B987-48D2ECC08336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{317280F5-F3E1-4568-B987-48D2ECC08336}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

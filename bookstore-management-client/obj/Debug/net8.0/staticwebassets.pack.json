@@ -1,0 +1,61 @@
+{
+  "Files": [
+    {
+      "Id": "/project/sandbox/user-workspace/bookstore-management-client/bin/Debug/net8.0/wwwroot/_framework/blazor.webassembly.js",
+      "PackagePath": "staticwebassets/_framework/blazor.webassembly.js"
+    },
+    {
+      "Id": "/project/sandbox/user-workspace/bookstore-management-client/obj/Debug/net8.0/compressed/wt8c3fjy2n.gz",
+      "PackagePath": "staticwebassets/_framework/blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "/project/sandbox/user-workspace/bookstore-management-client/obj/Debug/net8.0/scopedcss/bundle/bookstore-management-client.styles.css",
+      "PackagePath": "staticwebassets/bookstore-management-client.styles.css"
+    },
+    {
+      "Id": "/project/sandbox/user-workspace/bookstore-management-client/wwwroot/css/app.css",
+      "PackagePath": "staticwebassets/css/app.css"
+    },
+    {
+      "Id": "/project/sandbox/user-workspace/bookstore-management-client/wwwroot/css/bootstrap/bootstrap.min.css",
+      "PackagePath": "staticwebassets/css/bootstrap/bootstrap.min.css"
+    },
+    {
+      "Id": "/project/sandbox/user-workspace/bookstore-management-client/wwwroot/css/bootstrap/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/css/bootstrap/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/project/sandbox/user-workspace/bookstore-management-client/wwwroot/favicon.png",
+      "PackagePath": "staticwebassets/favicon.png"
+    },
+    {
+      "Id": "/project/sandbox/user-workspace/bookstore-management-client/wwwroot/icon-192.png",
+      "PackagePath": "staticwebassets/icon-192.png"
+    },
+    {
+      "Id": "/project/sandbox/user-workspace/bookstore-management-client/wwwroot/index.html",
+      "PackagePath": "staticwebassets/index.html"
+    },
+    {
+      "Id": "/project/sandbox/user-workspace/bookstore-management-client/wwwroot/sample-data/weather.json",
+      "PackagePath": "staticwebassets/sample-data/weather.json"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.bookstore-management-client.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.bookstore-management-client.props",
+      "PackagePath": "build\\bookstore-management-client.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.bookstore-management-client.props",
+      "PackagePath": "buildMultiTargeting\\bookstore-management-client.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.bookstore-management-client.props",
+      "PackagePath": "buildTransitive\\bookstore-management-client.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
